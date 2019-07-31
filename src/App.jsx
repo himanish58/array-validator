@@ -10,7 +10,6 @@ class App extends Component {
 		this.state = {
 			defaultArr: ['1', '2', '3', '4', '5'],
 			error: false,
-			disableButton: true,
 			input: '',
 			inputArr: [],
 			uniqueInputArr: [],
