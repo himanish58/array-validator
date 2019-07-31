@@ -8,7 +8,7 @@ class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			defaultArr: ['1', '2', '3', '4'],
+			defaultArr: ['1', '2', '3', '4', '5'],
 			error: false,
 			disableButton: true,
 			input: '',
@@ -23,58 +23,84 @@ class App extends Component {
 		};
 	}
 
-	isValidInput = (input, prevInput) => {
+	isValidInput = (wholeInput, input, prevInput) => {
+		if (
+			wholeInput.startsWith(',') ||
+			wholeInput.startsWith('-') ||
+			wholeInput.endsWith(',') ||
+			wholeInput.endsWith('-')
+		) {
+			return false;
+		}
 		for (let i = 0; i < 10; i++) {
 			if (i.toString() === input) return true;
 		}
-		if ((input === ',' && prevInput !== ',') || (input === '-' && prevInput !== '-')) return true;
+		if (
+			(input === ',' && prevInput !== ',') ||
+			(input === '-' && prevInput !== '-') ||
+			this.state.input.length === 0
+		) {
+			return true;
+		}
 		return false;
 	};
 
-	verifyDuplicate = (number) => {
-		console.log({ number });
-		let duplicateArr = [];
-		let defaultArr = [];
-		let inputArr = [];
-		let uniqueInputArr = [];
+	verifyDuplicate = (number, duplicateArr, uniqueInputArr) => {
+		// console.log({ number });
+		// let duplicateArr = this.state.duplicateArr;
+		let defaultArr = this.state.defaultArr;
+		// let inputArr = [];
+		// let uniqueInputArr = [];
 		if (Array.isArray(number)) {
-			for (let i = number[0]; i <= number[1]; i++) {
-				if (defaultArr.includes(i) && !duplicateArr.includes(i)) {
+			for (let i = parseInt(number[0]); i <= parseInt(number[1]); i++) {
+				i = i.toString();
+				if (defaultArr.includes(i)) {
 					duplicateArr.push(i);
-				} else {
-					inputArr.push(i);
+				} else if (!uniqueInputArr.includes(i)) {
+					uniqueInputArr.push(i);
 				}
 			}
-		} else if (defaultArr.includes(number) && !duplicateArr.includes(number)) {
+		} else if (defaultArr.includes(number)) {
 			duplicateArr.push(number);
-		} else if (!duplicateArr.includes(number) && !uniqueInputArr.includes(number)) {
+		} else if (!uniqueInputArr.includes(number)) {
 			uniqueInputArr.push(number);
 		}
-		this.setState({ duplicateArr, inputArr, uniqueInputArr });
+		console.log([duplicateArr, uniqueInputArr]);
+		return [duplicateArr, uniqueInputArr];
 	};
 
 	onChangeHandler = (e) => {
 		let input = e.target.value;
 		this.setState({ input });
-		if (input.endsWith(',') || input.endsWith('-')) {
-			input = input.slice(0, input.length - 1);
-		}
-		if (input.length && this.isValidInput(input[input.length - 1], input[input.length - 2])) {
+		if (this.isValidInput(input, input[input.length - 1], input[input.length - 2])) {
+			this.setState({ error: false });
 			let inputArr = input.split(',');
-			console.log(inputArr);
+			console.log({ inputArr });
+			let duplicateArr = [];
+			let uniqueInputArr = [];
 			for (let i = 0; i < inputArr.length; i++) {
+				// let duplicateArr = [];
+				// let uniqueInputArr = [];
+				// let abc = [];
 				if (inputArr[i].includes('-')) {
 					let rangeInput = inputArr[i].split('-');
-					if (rangeInput.length === 2 && rangeInput[0] < rangeInput[1]) {
-						this.verifyDuplicate(rangeInput);
+					if (rangeInput.length === 2 && parseInt(rangeInput[0]) < parseInt(rangeInput[1])) {
+						let arr = this.verifyDuplicate(rangeInput, duplicateArr, uniqueInputArr);
+						duplicateArr.push(...arr[0]);
+						uniqueInputArr.push(...arr[1]);
 					} else {
 						let error = true;
 						this.setState({ error });
 					}
 				} else {
-					this.verifyDuplicate(inputArr[i]);
+					let arr = this.verifyDuplicate(inputArr[i], duplicateArr, uniqueInputArr);
+					duplicateArr.push(...arr[0]);
+					uniqueInputArr.push(...arr[1]);
 				}
 			}
+			duplicateArr = [...new Set(duplicateArr)];
+			uniqueInputArr = [...new Set(uniqueInputArr)];
+			console.log({ duplicateArr, uniqueInputArr });
 		} else {
 			let error = true;
 			this.setState({ error });
@@ -87,7 +113,7 @@ class App extends Component {
 	};
 
 	render() {
-		console.log(this.state);
+		// console.log(this.state);
 		return (
 			<div className="app">
 				<h1>Array Validator</h1>
