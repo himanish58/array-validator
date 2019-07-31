@@ -2,7 +2,7 @@
 	"name": "array-validator",
 	"version": "0.1.0",
 	"private": true,
-	"homepage": "https://himanish58.github.io/small-react-app",
+	"homepage": "https://himanish58.github.io/array-validator",
 	"dependencies": {
 		"@material-ui/core": "^4.3.0",
 		"gh-pages": "^2.1.0",
