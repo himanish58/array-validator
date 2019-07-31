@@ -2,13 +2,32 @@
 	text-align: center;
 	font-family: 'Roboto';
 
+	.sub-heading {
+		font-size: 0.875rem;
+		margin: 1rem 0;
+	}
+
+	.error {
+		font-size: 0.75rem;
+		color: #ff0000;
+	}
+
 	.buttons {
 		margin: 1.25rem 0;
 
 		button {
 			margin: 0 1.25rem;
-			background-color: #b5e8b5;
 			width: 7rem;
 		}
+	}
+
+	.default {
+		font-size: 1rem;
+		margin: 1rem 0;
+	}
+
+	.duplicate {
+		@extend .default;
+		color: #ff0000;
 	}
 }
