@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/array-validator/static/css/main.b09305ec.chunk.css",
+    "main.js": "/array-validator/static/js/main.4a3da199.chunk.js",
+    "main.js.map": "/array-validator/static/js/main.4a3da199.chunk.js.map",
+    "runtime~main.js": "/array-validator/static/js/runtime~main.02332aa6.js",
+    "runtime~main.js.map": "/array-validator/static/js/runtime~main.02332aa6.js.map",
+    "static/js/2.a17efc95.chunk.js": "/array-validator/static/js/2.a17efc95.chunk.js",
+    "static/js/2.a17efc95.chunk.js.map": "/array-validator/static/js/2.a17efc95.chunk.js.map",
+    "index.html": "/array-validator/index.html",
+    "precache-manifest.e5819c790165d407b03e4f93c4e85884.js": "/array-validator/precache-manifest.e5819c790165d407b03e4f93c4e85884.js",
+    "service-worker.js": "/array-validator/service-worker.js",
+    "static/css/main.b09305ec.chunk.css.map": "/array-validator/static/css/main.b09305ec.chunk.css.map"
+  }
+}
